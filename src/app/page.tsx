@@ -1,49 +1,88 @@
-import { createClient } from '@/utils/supabase/server'
-import { cookies } from 'next/headers'
+'use client'
 
-export default async function Home() {
+import { createClient } from '@/utils/supabase/client'
+import { useState, useEffect } from 'react'
+import EventPopup from '@/components/EventPopup'
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-  const cookieStore = cookies()
-  const supabase = createClient(cookieStore)
+export default function Home() {
+  const [events, setEvents] = useState<any[]>([])
+  const [selectedEvent, setSelectedEvent] = useState<any>(null)
+  const [union, setUnion] = useState('all');
 
-  // Fetch events from Supabase
-  const { data: events, error } = await supabase
-    .from('Event')
-    .select('*')
+  useEffect(() => {
+    async function fetchEvents() {
+      const supabase = createClient()
 
-  if (error) {
-    console.error('Error fetching events:', error)
-  }
+      const { data: events, error } = await supabase
+        .from('Event')
+        .select('*')
+
+      if (error) {
+        console.error('Error fetching events:', error)
+      } else {
+        setEvents(events || [])
+      }
+    }
+    fetchEvents()
+  }, [])
 
   // Get unique months from events
-  const months = [...new Set(events?.map(event => 
+  const months = [...new Set(events?.map(event =>
     new Date(event.startDate).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' })
   ))]
 
   return (
     <>
       <div className="navbar">
-        <div className="title">umu event</div>
+        <div className="title">umu-event</div>
+        <a>Everything you need for UmU events in one place</a>
+      </div>
+      <div className='filter-bar'>
+        <div className='sub-title'>Filter by: </div>
+        <FormControl className='filter-menu' >
+          <InputLabel id="filter-select">Union</InputLabel>
+          <Select
+            labelId="filter-select"
+            id="filter-select"
+            value={union}
+            label="Union"
+            onChange={(e) => setUnion(e.target.value)}
+          >
+            <MenuItem value={"all"}>All</MenuItem>
+            <MenuItem value={"ntk"}>NTK</MenuItem>
+            <MenuItem value={"ums"}>Umeå Medicinarkår</MenuItem>
+            <MenuItem value={"us"}>UmeåStudentkår</MenuItem>
+          </Select>
+        </FormControl>
       </div>
       {months.map(month => (
         <div key={month}>
           <div className='month-title'>{month}:</div>
           <div className="event-container">
-            {events?.filter(event => 
+            {events?.filter(event =>
               new Date(event.startDate).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' }) === month
+            ).filter(event => 
+              union === 'all' || event.union === union
             ).sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
-            .map((event) => (
-              <div key={event.id} className="event-card">
-                <img src={event.image} width={"500px"} height={"200px"}></img>
-                <h3>{event.title}</h3>
-                <p>{event.description}</p>
-                <p>Starts: {event.startDate}</p>
-                <p>Ends: {event.endDate}</p>
-              </div>
-            ))}
+              .map((event) => (
+                <div key={event.id} className="event-card" onClick={() => setSelectedEvent(event)}>
+                  <img src={event.image} width={"500px"} height={"200px"}></img>
+                  <h3>{event.title}</h3>
+                  <p>{event.organizer}</p>
+                </div>
+              ))}
           </div>
         </div>
       ))}
+
+      <EventPopup
+        event={selectedEvent}
+        onClose={() => setSelectedEvent(null)}
+      />
     </>
 
   );

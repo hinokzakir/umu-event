@@ -23,7 +23,7 @@ export default async function Home() {
   return (
     <>
       <div className="navbar">
-        <div className="title">UMU EVENT</div>
+        <div className="title">umu event</div>
       </div>
       {months.map(month => (
         <div key={month}>
@@ -31,9 +31,10 @@ export default async function Home() {
           <div className="event-container">
             {events?.filter(event => 
               new Date(event.startDate).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' }) === month
-            ).map((event) => (
+            ).sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+            .map((event) => (
               <div key={event.id} className="event-card">
-                <img src={event.image}></img>
+                <img src={event.image} width={"500px"} height={"200px"}></img>
                 <h3>{event.title}</h3>
                 <p>{event.description}</p>
                 <p>Starts: {event.startDate}</p>

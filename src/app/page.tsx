@@ -3,15 +3,19 @@
 import { createClient } from '@/utils/supabase/client'
 import { useState, useEffect } from 'react'
 import EventPopup from '@/components/EventPopup'
+import HamburgerMenu from '@/components/HamburgerMenu'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { Bars3Icon } from '@heroicons/react/24/solid'
+
 
 export default function Home() {
   const [events, setEvents] = useState<any[]>([])
   const [selectedEvent, setSelectedEvent] = useState<any>(null)
   const [union, setUnion] = useState('all');
+  const [hamburgerMenu, setHamburgerMenu] = useState(false);
 
   useEffect(() => {
     async function fetchEvents() {
@@ -39,7 +43,7 @@ export default function Home() {
     <>
       <div className="navbar">
         <div className="title">umu-event</div>
-        <a>Everything you need for UmU events in one place</a>
+        <Bars3Icon className='hamburger-button' onClick={() => setHamburgerMenu(true)} title='menu'></Bars3Icon>
       </div>
       <div className='filter-bar'>
         <div className='sub-title'>Filter by: </div>
@@ -82,6 +86,10 @@ export default function Home() {
       <EventPopup
         event={selectedEvent}
         onClose={() => setSelectedEvent(null)}
+      />
+      <HamburgerMenu
+        state={hamburgerMenu}
+        onClose={() => setHamburgerMenu(false)}
       />
     </>
 

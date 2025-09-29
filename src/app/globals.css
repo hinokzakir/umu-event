@@ -47,6 +47,46 @@ body {
   border-bottom: #ffffff 0.1rem solid;
 }
 
+
+.hamburger-button {
+  width: 5rem;
+  height: 5rem;
+  color: var(--foreground);
+  cursor: pointer;
+  margin-top: 2rem;
+  margin-right: 3rem;
+}
+
+.hamburger-button:hover {
+  color: grey;
+  transition: color 0.3s;
+}
+
+.hamburger-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 20rem;
+  height: 100%;
+  background-color: var(--background);
+  color: var(--foreground);
+  border-left: #ffffff 0.1rem solid;
+  padding: 2rem;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  transform: translateX(0);
+  transition: transform 1s ease-in-out;
+}
+
+.hamburger-menu a {
+  display: block;
+  color: var(--foreground);
+  text-decoration: none;
+  font-family:'Courier New', Courier, monospace;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
 .navbar a {
   color: var(--foreground);
   text-decoration: none;

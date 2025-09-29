@@ -83,13 +83,19 @@ body {
 .event-container {
   flex-direction: row;
   display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 1rem;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 .event-card {
   border: 0.1rem solid var(--foreground);
   padding: 2rem;
-  margin: 1rem;
   width: 20rem;
+  min-width: 20rem;
+  flex-shrink: 0;
 }
 
 .event-card:hover {

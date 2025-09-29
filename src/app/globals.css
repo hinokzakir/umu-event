@@ -32,6 +32,12 @@ body {
   margin: 1rem;
 }
 
+.sub-title {
+  font-family:'Courier New', Courier, monospace;
+  font-size: 2rem;
+  margin-left: 3rem;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -39,4 +45,34 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   border-bottom: #ffffff 0.1rem solid;
+}
+
+.event-container {
+  flex-direction: row;
+  display: flex;
+}
+
+.event-card {
+  border: 0.1rem solid var(--foreground);
+  padding: 2rem;
+  margin: 1rem;
+  width: 20rem;
+}
+
+.event-card:hover {
+  background-color: var(--foreground);
+  color: var(--background);
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.event-card h3 {
+  font-family:'Courier New', Courier, monospace;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.event-card p {
+  font-family:'Courier New', Courier, monospace;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
 }

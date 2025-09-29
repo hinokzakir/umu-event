@@ -15,22 +15,34 @@ export default async function Home() {
     console.error('Error fetching events:', error)
   }
 
+  // Get unique months from events
+  const months = [...new Set(events?.map(event => 
+    new Date(event.startDate).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' })
+  ))]
+
   return (
     <>
       <div className="navbar">
         <div className="title">UMU EVENT</div>
       </div>
-      <div className="sub-title">In progress..</div>
-      <div className="event-container">
-        {events?.map((event) => (
-          <div key={event.id} className="event-card">
-            <h3>{event.title}</h3>
-            <p>{event.description}</p>
-            <p>Starts: {event.startDate}</p>
-            <p>Ends: {event.endDate}</p>
+      {months.map(month => (
+        <div key={month}>
+          <div className='month-title'>{month}:</div>
+          <div className="event-container">
+            {events?.filter(event => 
+              new Date(event.startDate).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' }) === month
+            ).map((event) => (
+              <div key={event.id} className="event-card">
+                <img src={event.image}></img>
+                <h3>{event.title}</h3>
+                <p>{event.description}</p>
+                <p>Starts: {event.startDate}</p>
+                <p>Ends: {event.endDate}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </>
 
   );

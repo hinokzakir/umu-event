@@ -29,7 +29,7 @@ body {
 .title {
   font-family:'Courier New', Courier, monospace;
   font-size: 5rem;
-  margin: 1rem;
+  margin: 0.5rem;
 }
 
 .sub-title {
@@ -46,7 +46,12 @@ body {
   color: var(--foreground);
   border-bottom: #ffffff 0.1rem solid;
 }
-
+.month-title {
+  font-family:'Courier New', Courier, monospace;
+  font-size: 3rem;
+  margin: 1rem;
+  margin-top: 3rem;
+}
 .event-container {
   flex-direction: row;
   display: flex;

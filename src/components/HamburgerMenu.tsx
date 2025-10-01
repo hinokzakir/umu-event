@@ -21,7 +21,10 @@ export default function HamburgerMenu({ state, onClose }: hamburgerMenuProps) {
 				>
 					×
 				</button>
-				<a href="/">Home</a>
+				<div className="hamburger-items-container">
+					<a href="/">Home</a>
+					<a href="/frats">Student-organizations</a>
+				</div>
 			</div>
 		</div>
 	);

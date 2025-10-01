@@ -8,7 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { Bars3Icon } from '@heroicons/react/24/solid'
+import Navbar from '@/components/navbar'
 
 
 export default function Home() {
@@ -41,10 +41,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="navbar">
-        <div className="title">umu-event</div>
-        <Bars3Icon className='hamburger-button' onClick={() => setHamburgerMenu(true)} title='menu'></Bars3Icon>
-      </div>
+      <Navbar onMenuClick={() => setHamburgerMenu(true)} />
       <div className='filter-bar'>
         <div className='sub-title'>Filter by: </div>
         <FormControl className='filter-menu' >

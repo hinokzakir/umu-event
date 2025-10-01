@@ -78,6 +78,18 @@ body {
   transition: transform 1s ease-in-out;
 }
 
+.hamburger-items-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5rem;
+}
+
+.hamburger-menu .popup-close {
+  margin-top: 0.5rem;
+  margin-right: 4rem;
+  font-size: 6rem;
+}
+
 .hamburger-menu a {
   display: block;
   color: var(--foreground);
@@ -85,6 +97,11 @@ body {
   font-family:'Courier New', Courier, monospace;
   font-size: 1.5rem;
   margin: 1rem 0;
+}
+
+.hamburger-menu a:hover {
+  background-color: white;
+  color: black;
 }
 
 .navbar a {
@@ -222,6 +239,10 @@ body {
   height: 300px;
   object-fit: cover;
   border-radius: 8px;
+}
+
+.frat-page {
+  font-family: 'Courier New', Courier, monospace;
 }
 
 /* Material-UI Select styling */

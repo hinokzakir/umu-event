@@ -10,6 +10,11 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Navbar from '@/components/navbar'
 
+// Input sanitization
+const sanitizeInput = (input: string): string => {
+  return input.trim().replace(/[<>]/g, '');
+};
+
 
 export default function Home() {
   const [events, setEvents] = useState<any[]>([])
